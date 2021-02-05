@@ -1,4 +1,3 @@
-//https://leetcode.com/explore/learn/card/linked-list/214/two-pointer-technique/1215/
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -16,13 +15,9 @@ public class Solution {
         int lenB = getListLength(headB);
         
         if(lenA > lenB) {
-            for (int i = 0; i < (lenA - lenB); i++) {
-                headA = headA.next;
-            }
+            headA = offset(headA, lenA - lenB);
         } else {
-            for (int i = 0; i < (lenB - lenA); i++) {
-                headB = headB.next;
-            }
+            headB = offset(headB, lenB - lenA);
         }
         
         while(headA != null && headA != headB) {
@@ -32,12 +27,19 @@ public class Solution {
         return headA;
     }
     
-    public int getListLength(ListNode head) {
+    private int getListLength(ListNode head) {
         int length = 0;
         while(head != null) {
             head = head.next;
             length++;
         }
         return length;
+    }
+    
+    private ListNode offset(ListNode head, int count) {
+        for (int i = 0; i < count; i++) {
+                head = head.next;
+        }
+        return head;
     }
 }
